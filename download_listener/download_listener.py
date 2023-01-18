@@ -25,8 +25,8 @@ class DownloadListener:
             )
             found = False
             for file in current_list:
-                if file == current + ".pdf":
-                    current_list.remove(f"{current}.pdf")
+                if file.startswith(current):
+                    current_list.remove(current)
                     current = next(self.files_names_iterator)
                     found = True
                     break
@@ -34,15 +34,18 @@ class DownloadListener:
                 current = next(self.files_names_iterator)
             self.adjust_iterator(current, current_list)
         except StopIteration:
+            if len(self.get_file_list()) > 0:
+                print("No files found to skip iterator, reseting iterator")
+                self.files_names_iterator.reset()
             return
 
     def rename_file_to_next_name(self, file_name_to_listen: str):
         new_name = self.files_names_iterator.current_str
         os.rename(
             os.path.join(self.download_dir, file_name_to_listen),
-            os.path.join(self.download_dir, new_name + ".pdf"),
+            os.path.join(self.download_dir, new_name),
         )
-        print("Renamed file to " + new_name + ".pdf")
+        print("Renamed file to " + new_name)
         next(self.files_names_iterator)
 
     def listen(self, file_name_to_listen: str):
