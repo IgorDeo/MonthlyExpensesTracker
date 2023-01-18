@@ -12,3 +12,7 @@ class Iterator(ABC):
     @abstractmethod
     def __next__(self):
         pass
+
+    @abstractmethod
+    def reset(self):
+        pass
