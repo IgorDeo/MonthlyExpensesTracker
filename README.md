@@ -15,8 +15,9 @@ to_date = datetime.datetime(yyyy, m, d)
 
 default_file_name = "Enter your default file name here"
 working_dir = "Enter your working directory here"
+file_extension = 'Enter the file extension'
 
-date_iterator = DateIterator(from_date=from_date, to_date=to_date)
+date_iterator = DateIterator(from_date=from_date, to_date=to_date, file_extension=file_extension)
 listener = DownloadListener(working_dir=working_dir, files_names_iterator=date_iterator)
 
 
