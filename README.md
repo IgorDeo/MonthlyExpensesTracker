@@ -10,8 +10,8 @@ from download_listener.download_listener import DownloadListener
 import datetime
 from download_listener.iterators.date_iterator import DateIterator
 
-from_date = datetime.datetime(2019, 1, 1)
-to_date = datetime.datetime(2019, 12, 1)
+from_date = datetime.datetime(yyyy, m, d) #
+to_date = datetime.datetime(yyyy, m, d)
 
 default_file_name = "Enter your default file name here"
 working_dir = "Enter your working directory here"
