@@ -2,16 +2,16 @@ import os
 
 
 class DownloadListener:
-    def __init__(self, working_dir: str = None, files_names_iterator=None):
+    def __init__(self, download_dir: str = None, files_names_iterator=None):
         if not files_names_iterator:
             raise ValueError("files_names_iterator is required")
         self.files_names_iterator = files_names_iterator
-        self.working_dir = working_dir if working_dir else os.getcwd()
+        self.download_dir = download_dir if download_dir else os.getcwd()
 
-        os.chdir(self.working_dir)
+        os.chdir(self.download_dir)
 
     def get_file_list(self) -> "list[str]":
-        return os.listdir(self.working_dir)
+        return os.listdir(self.download_dir)
 
     def adjust_iterator(self, current_name: str = None, files_list: "list[str]" = None):
         try:
@@ -39,8 +39,8 @@ class DownloadListener:
     def rename_file_to_next_name(self, file_name_to_listen: str):
         new_name = self.files_names_iterator.current_str
         os.rename(
-            os.path.join(self.working_dir, file_name_to_listen),
-            os.path.join(self.working_dir, new_name + ".pdf"),
+            os.path.join(self.download_dir, file_name_to_listen),
+            os.path.join(self.download_dir, new_name + ".pdf"),
         )
         print("Renamed file to " + new_name + ".pdf")
         next(self.files_names_iterator)
@@ -48,7 +48,7 @@ class DownloadListener:
     def listen(self, file_name_to_listen: str):
         try:
             self.adjust_iterator()
-            print(f"Listening for file on {self.working_dir}")
+            print(f"Listening for file on {self.download_dir}")
             print("Waiting for file...")
             while True:
                 if file_name_to_listen in self.get_file_list():
